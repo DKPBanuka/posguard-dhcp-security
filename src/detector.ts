@@ -1,5 +1,7 @@
 import { DhcpEvent, DhcpAlert, DhcpMessageType, EvaluationMetrics } from './types';
 
+export type { DhcpEvent, DhcpAlert, DhcpMessageType, EvaluationMetrics };
+
 export interface DetectionRuleDef {
   code: 'R1' | 'R2' | 'R3' | 'R4' | 'R5' | 'R6' | 'R7' | 'R8' | 'R9';
   name: string;
@@ -299,7 +301,9 @@ export function detectThreats(
       const primary = triggeredRules[0];
 
       ev.rule_code = primary.code;
-      ev.rule = triggeredRules.map((r) => r.code).join(', ');
+      ev.rule = primary.code === 'R8'
+        ? 'R8: DISCOVER burst (>14 in 5s)'
+        : triggeredRules.map((r) => r.code).join(', ');
 
       alertCount++;
       const alertId = `ALT-${String(alertCount).padStart(3, '0')}`;

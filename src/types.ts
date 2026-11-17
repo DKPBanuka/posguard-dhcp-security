@@ -76,3 +76,16 @@ export interface CandidateVulnerability {
     F: 'A' | 'B' | 'C';
   };
 }
+
+export interface EvaluationMetrics {
+  tp: number;
+  fp: number;
+  fn: number;
+  tn: number;
+  precision: number;
+  recall: number;
+  f1: number;
+  totalEvents: number;
+  totalAlerts: number;
+}
+
